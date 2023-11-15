@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="row question">
+    <div class="col-3">
+        <img src="{% static '/img/among_us.jpg' %}" alt="" class="question-image">
+    </div>
+    <div class="col-9">
+        <div class="question-text">{{ answer.content }}</div>
+    </div>
+    <div class="col-3">
+         <div class="like-container">
+                <div class="comment-votes btn-group btn-group" role="group"
+                     aria-label="Comment votes">
+                    <span class="btn btn-secondary px-2 py-0 active"><span
+                            class="badge badge-secondary">{{ answer.likes }}</span></span>
+                    <button type="button" class="btn btn-outline-secondary px-1 py-0 shadow-none">&#8593;</button>
+                    <button type="button" class="btn btn-outline-secondary px-1 py-0 shadow-none">&#8595;</button>
+                </div>
+            </div>
+    </div>
+        <div class="col-9">
+            <div>
+                <input type="checkbox" style="margin-top: 30px"> Правильный ответ
+            </div>
+        </div>
+    </div>

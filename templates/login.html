@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h3 xmlns="http://www.w3.org/1999/html">Войти</h3>
+
+<form>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
+        <input type="email" class="form-control" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">Мы никому не сообщаем ваш email</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Пароль</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+</form>
+
+<div class="CreateNewAccount">
+    <h1></h1>
+    <a href="{% url 'register' %}">Создать новый аккаунт</a>
+</div>
+
+{% endblock %}

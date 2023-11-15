@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h3>Настройки: Username</h3>
+
+
+<form>
+    <div class="mb-3">
+        <label for="exampleLogin" class="form-label">Логин</label>
+        <input type="text" class="form-control" id="exampleLogin">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" class="form-control" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">Мы никому не сообщаем ваш email.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleNickname" class="form-label">Никнейм</label>
+        <input type="text" class="form-control" id="exampleNickname">
+    </div>
+    <div class="mb-3">
+        <label>Фото профиля
+            <img src="../static/img/avatar.webp" height="200"; width="200">
+        </label>
+        <button type="submit" class="btn btn-primary">Изменить фото</button>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+</form>
+
+{% endblock %}

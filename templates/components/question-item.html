@@ -1,0 +1,51 @@
+{% load static %}
+
+
+<div class="row question">
+    <div class="col-3">
+        <img src="{% static '/img/messi.jpg' %}" alt="" class="question-image">
+    </div>
+    <div class="col-9">
+        <div class="question-title">
+            <a href="/question/{{ question.id }}">{{ question.title }}</a>
+        </div>
+        <div class="question-text">{{ question.content }}</div>
+    </div>
+    <div class="col-3">
+        <div>
+            <div class="like-container">
+                <div class="comment-votes btn-group btn-group" role="group"
+                     aria-label="Comment votes">
+                    <span class="btn btn-secondary px-2 py-0 active"><span
+                            class="badge badge-secondary">{{ question.likes }}</span></span>
+                    <button type="button" class="btn btn-outline-secondary px-1 py-0 shadow-none">
+                        &#8593;
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary px-1 py-0 shadow-none">
+                        &#8595;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="question-answers"
+             style="margin-top: 30px"
+        ><a href="/question/{{ question.id }}">Ответы{{ question.answer.count }}</a>
+        </div>
+    </div>
+
+    <div class="col-7">
+        <div class="question-tags"
+             style="margin-top: 30px">
+            <div class="tags"
+                 style="border: none; max-width: 280px; border-radius: 15px; padding:0px">
+                {% for tag in question.tags.all %}
+                <span class="badge bg-primary"><a href="/tag/{{ tag.name }}"
+                                                  style="text-decoration: none;
+                                                  color: white">{{ tag.name }}</a></span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<h3>Задайте свой вопрос</h3>
+<form>
+    <div class="mb-3">
+        <label for="questionDescription" class="form-label">Кратко опишите проблему</label>
+        <input type="text" class="form-control" id="questionDescription">
+    </div>
+    <div class="mb-3">
+        <label>Опишите проблему как можно подробнее
+            <textarea class="form-control" rows="10" cols="100"></textarea>
+        </label>
+    </div>
+    <div class="mb-3">
+        <label for="questionTags" class="form-label">Добавьте теги через запятую</label>
+        <input type="text" class="form-control" id="questionTags">
+    </div>
+    <button type="submit" class="btn btn-primary">Спросить</button>
+</form>
+
+
+{% endblock %}
