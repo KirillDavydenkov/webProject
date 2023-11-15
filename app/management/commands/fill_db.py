@@ -5,6 +5,7 @@ from mimesis.locales import Locale
 from app.models import User, Question, Tag, Answer, Profile
 from django.contrib.auth.models import User
 from mimesis import Text
+from datetime import datetime, timedelta
 from django.db.utils import IntegrityError
 
 
@@ -27,7 +28,7 @@ class Command(BaseCommand):
         _fill_tags(ratio)
         _fill_questions(ratio * 10)
         _fill_answers(ratio * 100)
-        _fill_likes(ratio * 500)
+        # _fill_likes(ratio * 500)
 
 
 def _fill_users(ratio):
@@ -52,7 +53,7 @@ def _fill_users(ratio):
     profiles = []
     for user in persisted_users:
         profiles.append(Profile(user=user))
-    Profile.objects.bulk_create(profiles, ignore_conflicts=True)
+    Profile.objects.bulk_create(profiles, ignore_conflicts=False)
 
 
 def _fill_tags(ratio):
@@ -77,20 +78,20 @@ def _fill_questions(ratio):
         txt = Text(Locale.EN)
 
         q = Question(title=txt.quote(),
-                     content=txt.text(30),
+                     content=txt.text(5),
                      author=users[i % (len(users) or 1)],
-                     )
+                     likes=random.randint(0, 100),
+                     date_written=datetime.now()-timedelta(hours=random.randint(0, 1000)))
 
         questions.append(q)
 
-    Question.objects.bulk_create(questions, ignore_conflicts=True)
+    Question.objects.bulk_create(questions, ignore_conflicts=False)
 
     persisted_questions = Question.objects.all()
 
     all_tags = Tag.objects.all()
     for i in range(ratio):
         persisted_questions[i].tags.set(random.sample(list(all_tags), random.randint(0, 3)))
-        print('im in cycle persisted')
         persisted_questions[i].save()
 
 
@@ -108,22 +109,23 @@ def _fill_answers(ratio):
         answers = []
         for i in range(ratio // n):
             txt = Text(Locale.EN)
-            a = Answer(content=txt.text(30),
+            a = Answer(content=txt.text(5),
                        author=users[i % (len(users) or 1)],
-                       parent_question=questions[i % (len(questions) or 1)])
+                       parent_question=questions[i % (len(questions) or 1)],
+                       likes=random.randint(0, 100))
             answers.append(a)
         Answer.objects.bulk_create(answers, ignore_conflicts=True)
 
 
-def _fill_likes(ratio):
-    for _ in range(ratio):
-        users = list(User.objects.all())
-        questions = list(Question.objects.all())
-        answers = list(Answer.objects.all())
-
-        random_user = random.choice(users)
-        random_question = random.choice(questions)
-        random_answer = random.choice(answers)
-
-        random_question.likes.add(random_user)
-        random_answer.likes.add(random_user)
+# def _fill_likes(ratio):
+#     for _ in range(ratio):
+#         users = list(User.objects.all())
+#         questions = list(Question.objects.all())
+#         answers = list(Answer.objects.all())
+#
+#         random_user = random.choice(users)
+#         random_question = random.choice(questions)
+#         random_answer = random.choice(answers)
+#
+#         random_question.likes.set(random_user)
+#         random_answer.likes.add(random_user)

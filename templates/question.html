@@ -8,7 +8,7 @@
 
     <h2>Ответы</h2>
 
-    {% for answer in question.answer_set.all|dictsortreversed:"date_written"|dictsortreversed:"likes" %}
+    {% for answer in answers %}
     {% include 'components/answer-item.html' %}
     {% endfor %}
 

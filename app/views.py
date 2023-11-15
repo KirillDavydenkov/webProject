@@ -25,12 +25,6 @@ def get_tag(Tag):
 
 tags = get_tag(Tag=Tag)
 
-def get_best_users(Profile):
-     return Profile.objects.annotate(total_likes=Count('user__questions__likes') +
-                                                      Count('user__answer__likes')).order_by(
-        'total_likes')[:10]
-
-
 
 # Create your views here.
 def index(request):
@@ -39,7 +33,7 @@ def index(request):
                                                       Count('user__answer__likes')).order_by(
         'total_likes')[:10]
     return render(request, 'index.html',
-                  {'questions': paginate(questions, request, per_page=10), 'tags': tags,
+                  {'questions': paginate(questions, request, per_page=20), 'tags': tags,
                    'best_users': best_users})
 
 
@@ -49,7 +43,7 @@ def best_questions(request):
         'total_likes')[:10]
     best_questions = Question.objects.all().exclude(likes=None).order_by("-likes")
     return render(request, 'index.html',
-                  {'questions': paginate(best_questions, request, per_page=2), 'tags': tags,
+                  {'questions': paginate(best_questions, request, per_page=20), 'tags': tags,
                    'best_users': best_users})
 
 
@@ -59,7 +53,7 @@ def new_questions(request):
         'total_likes')[:10]
     new_questions = Question.objects.all().exclude(date_written=None).order_by("-date_written")
     return render(request, 'index.html',
-                  {'questions': paginate(new_questions, request, per_page=2), 'tags': tags,
+                  {'questions': paginate(new_questions, request, per_page=20), 'tags': tags,
                    'best_users': best_users})
 
 
@@ -68,8 +62,9 @@ def question(request, id):
                                                       Count('user__answer__likes')).order_by(
         'total_likes')[:10]
     question_object = Question.objects.get(id=id)
+    answers = question_object.answer_set.order_by("-date_written", "-likes")
     return render(request, 'question.html',
-                  {'tags': tags, 'question': question_object, 'best_users': best_users})
+                  {'tags': tags, 'question': question_object, 'best_users': best_users, 'answers': answers})
 
 
 def tag(request, name):

@@ -31,7 +31,7 @@
     <div class="col-2">
         <div class="question-answers"
              style="margin-top: 30px"
-        ><a href="/question/{{ question.id }}">Ответы{{ question.answer.count }}</a>
+        ><a href="/question/{{ question.id }}">Ответы ({{ question.answer_set.all.count }})</a>
         </div>
     </div>
 
