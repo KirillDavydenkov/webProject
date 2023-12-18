@@ -118,18 +118,8 @@
                        href="{% url 'ask' %}" style="margin-right: 40px" role="button">Спросить</a>
                 </div>
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="navbar-brand" href="#">
-                            <img src="{% static '/img/avatar.webp' %}" alt="" width="40"
-                                 height="40">
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'settings' %}">Настройки</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
-                    </li>
+                    {% block user_status %}
+                    {% endblock %}
                 </ul>
 
 
@@ -152,20 +142,21 @@
                     <div class="tags"
                          style="border: 1px solid grey; max-width: 280px; border-radius: 15px; padding: 10px;">
                         {% for tag in tags %}
-                        <span class="badge bg-primary"><a href="/tag/{{ tag.name }}"
-                                                          style="text-decoration: none;
+                            <span class="badge bg-primary"><a href="/tag/{{ tag.name }}"
+                                                              style="text-decoration: none;
                                                           color: white">{{ tag.name }}</a></span>
                         {% endfor %}
                     </div>
                     <br/>
-
-                    <h3>Активные пользователи</h3>
-                    <ul class="list-group list-group-flush"
-                        style="border: 1px solid grey; max-width: 280px; border-radius: 15px; padding: 10px;">
-                        {% for user in best_users %}
-                        <li class="list-group-item">{{ user.user.username }}</li>
-                        {% endfor %}
-                    </ul>
+                    <div class="row" style="margin-top: 25px">
+                        <h3>Активные пользователи</h3>
+                        <ul class="list-group list-group-flush"
+                            style="border: 1px solid grey; max-width: 280px; border-radius: 15px; padding: 10px;">
+                            {% for user in best_users %}
+                                <li class="list-group-item">{{ user.user.username }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

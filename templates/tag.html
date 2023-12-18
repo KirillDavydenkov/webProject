@@ -1,19 +1,35 @@
 {% extends 'layouts/base.html' %}
+
 {% load static %}
+
+{% block user_status %}
+    <li class="nav-item">
+        <a class="navbar-brand" href="#">
+            <img src="{% static '/img/avatar.webp' %}" alt="" width="40"
+                 height="40">
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'settings' %}">Настройки</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Выйти</a>
+{% endblock user_status %}
+
 {% block content %}
 
-<h3>Вопросы с тегом {{ tag.name }}</h3>
+    <h3>Вопросы с тегом {{ tag.name }}</h3>
 
-{% for question in tag.question_set.all %}
-{% include 'components/question-item.html' %}
-{% endfor %}
+    {% for question in tag.question_set.all %}
+        {% include 'components/question-item.html' %}
+    {% endfor %}
 
-<nav class="mt-3 d-flex justify-content-center">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-</nav>
+    <nav class="mt-3 d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
 
 {% endblock %}

@@ -1,39 +1,111 @@
-{% extends 'layouts/base.html' %}
+{% extends "layouts/base.html" %}
+
+{% block user_status %}
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Регистрация</a>
+    </li>
+{% endblock user_status %}
 
 {% block content %}
+    <div class="col-9 my-4">
+        <div class="d-flex justify-content-start align-items-center">
+            <h2>Регистрация</h2>
+        </div>
+        <div class="d-flex justify-content-start align-items-center">
+            <p class="text-danger">Извините, этот email адрес уже используется</p>
+        </div>
 
-<h1>Регистрация</h1>
+        <div class="container p-3 my-3">
+            <div class="row align-items-center">
 
-<form>
-    <div class="mb-3">
-        <label for="InputLogin" class="form-label">Логин</label>
-        <input type="password" class="form-control" id="InputLogin">
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1"
-               aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">Мы никому не сообщаем ваш email</div>
-    </div>
-    <div class="mb-3">
-        <label for="InputNickName" class="form-label">Никнейм</label>
-        <input type="password" class="form-control" id="InputNickName">
-    </div>
-    <div class="mb-3">
-        <label for="InputPassword" class="form-label">Введите пароль</label>
-        <input type="password" class="form-control" id="InputPassword">
-    </div>
-    <div class="mb-3">
-        <label for="RepeatPassword" class="form-label">Повторите пароль</label>
-        <input type="password" class="form-control" id="RepeatPassword">
-    </div>
-    <div class="mb-3">
-        <label>Фото профиля</label>
-        <img src="../static/img/avatar.webp" height="150" width="150">
-        <button type="submit" class="btn btn-primary">Выбрать фото</button>
-    </div>
-    <button type="submit" class="btn btn-primary">Подтвердить</button>
-</form>
+                <div class="col-2 px-0">
+                    <label for="loginName" class="text-body fs-5 my-0">Логин</label>
+                </div>
 
+                <div class="col-10">
+                    <form class="form-horizontal" action="" method="POST" role="form" name="" id="">
+                        <div class="form-group">
+                            <input type="email" id="loginName" class="form-control"
+                                   placeholder="Введите логин"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-{% endblock %}
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="email" class="text-body fs-5">Email</label>
+                </div>
+
+                <div class="col-10">
+                    <input id="email" type="email" class="form-control"
+                           placeholder="Мы никому не сообщаем ваш email"/>
+                </div>
+            </div>
+
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="nickname" class="text-body fs-5">Никнейм</label>
+                </div>
+
+                <div class="col-10">
+                    <input id="nickname" type="text" class="form-control"
+                           placeholder="Введите свой никнейм"/>
+                </div>
+            </div>
+
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="password" class="text-body fs-5">Пароль</label>
+                </div>
+
+                <div class="col-10">
+                    <input id="password" type="password" class="form-control"
+                           placeholder="Введите пароль"/>
+                </div>
+            </div>
+
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="password2" class="text-body fs-5">Повторите пароль</label>
+                </div>
+
+                <div class="col-10">
+                    <input id="password2" type="password" class="form-control"
+                           placeholder="Введите пароль ещё раз"/>
+                </div>
+            </div>
+
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="avatar" class="text-body fs-5">Фото профиля</label>
+                </div>
+
+                <div class="col-10">
+                    <input type="file" class="form-control text-secondary" id="avatar"
+                           placeholder="Выберите фото"/>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="col-2 px-0">
+                    <p></p>
+                </div>
+
+                <div class="col-10">
+                    <button type="button" class="btn btn-primary px-5">Регистрация</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

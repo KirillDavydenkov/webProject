@@ -1,31 +1,108 @@
-{% extends 'layouts/base.html' %}
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block user_status %}
+    <li class="nav-item">
+        <a class="navbar-brand" href="#">
+            <img src="{% static '/img/avatar.webp' %}" alt="" width="40"
+                 height="40">
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'settings' %}">Настройки</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Выйти</a>
+    </li>
+{% endblock user_status %}
 
 {% block content %}
-<h3>Настройки: Username</h3>
+    <div class="col-9 my-4">
 
+        <div class="d-flex justify-content-start align-items-center">
+            <h2 class="text-body">Настройки: </h2>
+            <h2 class="text-body mx-3">Username</h2>
+        </div>
 
-<form>
-    <div class="mb-3">
-        <label for="exampleLogin" class="form-label">Логин</label>
-        <input type="text" class="form-control" id="exampleLogin">
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1"
-               aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">Мы никому не сообщаем ваш email.</div>
-    </div>
-    <div class="mb-3">
-        <label for="exampleNickname" class="form-label">Никнейм</label>
-        <input type="text" class="form-control" id="exampleNickname">
-    </div>
-    <div class="mb-3">
-        <label>Фото профиля
-            <img src="../static/img/avatar.webp" height="200"; width="200">
-        </label>
-        <button type="submit" class="btn btn-primary">Изменить фото</button>
-    </div>
-    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-</form>
+        <div class="d-flex justify-content-start align-items-center">
+            <p class="text-danger">Неправильный формат фото!</p>
+        </div>
 
-{% endblock %}
+        <div class="container p-3 my-3">
+            <div class="row align-items-center">
+
+                <div class="col-2 px-0">
+                    <label for="loginName" class="text-body fs-5 my-0">Логин</label>
+                </div>
+
+                <div class="col-10">
+                    <div class="form-group">
+                        <input type="email" id="loginName" name="loginName" class="form-control"
+                               placeholder="Введите логин"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="email" class="text-body fs-5">Email</label>
+                </div>
+
+                <div class="col-10">
+                    <input id="email" type="email" class="form-control"
+                           placeholder="Введите Ваш email"/>
+                </div>
+            </div>
+
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="nickname" class="text-body fs-5">Никнейм</label>
+                </div>
+
+                <div class="col-10">
+                    <input id="nickname" type="text" class="form-control"
+                           placeholder="Введите никнейм"/>
+                </div>
+            </div>
+
+            <div class="row my-4">
+
+                <div class="col-2 px-0">
+                    <label for="avatar" class="text-body fs-5">Выберите фото профиля</label>
+                </div>
+
+                <div class="col-10">
+                    <img src="https://klike.net/uploads/posts/2023-01/1674365337_3-31.jpg"
+                         class="rounded-3" style="width: 100px;" alt="Avatar"/>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="col-2 px-0">
+                    <p></p>
+                </div>
+
+                <div class="col-10">
+                    <input type="file" class="form-control text-secondary" id="avatar"
+                           placeholder="Выберите фото профиля"/>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="col-2 px-0">
+                    <p></p>
+                </div>
+
+                <div class="col-10">
+                    <button type="button" class="btn btn-primary px-5 my-4">Сохранить</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}
