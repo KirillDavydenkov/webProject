@@ -118,8 +118,7 @@
                        href="{% url 'ask' %}" style="margin-right: 40px" role="button">Спросить</a>
                 </div>
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                    {% block user_status %}
-                    {% endblock %}
+                    {% include 'components/user_status.html' %}
                 </ul>
 
 
@@ -142,7 +141,7 @@
                     <div class="tags"
                          style="border: 1px solid grey; max-width: 280px; border-radius: 15px; padding: 10px;">
                         {% for tag in tags %}
-                            <span class="badge bg-primary"><a href="/tag/{{ tag.name }}"
+                            <span class="badge bg-primary"><a href="{% url 'tag' name=tag.name %}"
                                                               style="text-decoration: none;
                                                           color: white">{{ tag.name }}</a></span>
                         {% endfor %}

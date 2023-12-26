@@ -1,111 +1,103 @@
 {% extends "layouts/base.html" %}
 
-{% block user_status %}
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Регистрация</a>
-    </li>
-{% endblock user_status %}
-
 {% block content %}
     <div class="col-9 my-4">
         <div class="d-flex justify-content-start align-items-center">
             <h2>Регистрация</h2>
         </div>
-        <div class="d-flex justify-content-start align-items-center">
-            <p class="text-danger">Извините, этот email адрес уже используется</p>
-        </div>
+{#        <div class="d-flex justify-content-start align-items-center">#}
+{#            <p class="text-danger">Извините, этот email адрес уже используется</p>#}
+{#        </div>#}
 
         <div class="container p-3 my-3">
-            <div class="row align-items-center">
 
-                <div class="col-2 px-0">
-                    <label for="loginName" class="text-body fs-5 my-0">Логин</label>
-                </div>
+            <form method="post" action="{% url 'register' %}" enctype="multipart/form-data" class="login_form">
+                {% csrf_token %}
+                <div class="row align-items-center">
 
-                <div class="col-10">
-                    <form class="form-horizontal" action="" method="POST" role="form" name="" id="">
+                    <div class="col-2 px-0">
+                        <label for="loginName" class="text-body fs-5 my-0">Логин</label>
+                    </div>
+
+                    <div class="col-10">
                         <div class="form-group">
-                            <input type="email" id="loginName" class="form-control"
+                            <input type="text" name="login" class="form-control"
                                    placeholder="Введите логин"/>
                         </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="row my-4">
-
-                <div class="col-2 px-0">
-                    <label for="email" class="text-body fs-5">Email</label>
+                    </div>
                 </div>
 
-                <div class="col-10">
-                    <input id="email" type="email" class="form-control"
-                           placeholder="Мы никому не сообщаем ваш email"/>
-                </div>
-            </div>
+                <div class="row my-4">
 
-            <div class="row my-4">
+                    <div class="col-2 px-0">
+                        <label for="email" class="text-body fs-5">Email</label>
+                    </div>
 
-                <div class="col-2 px-0">
-                    <label for="nickname" class="text-body fs-5">Никнейм</label>
-                </div>
-
-                <div class="col-10">
-                    <input id="nickname" type="text" class="form-control"
-                           placeholder="Введите свой никнейм"/>
-                </div>
-            </div>
-
-            <div class="row my-4">
-
-                <div class="col-2 px-0">
-                    <label for="password" class="text-body fs-5">Пароль</label>
+                    <div class="col-10">
+                        <input name="email" type="email" class="form-control"
+                               placeholder="Ваш email"/>
+                    </div>
                 </div>
 
-                <div class="col-10">
-                    <input id="password" type="password" class="form-control"
-                           placeholder="Введите пароль"/>
-                </div>
-            </div>
+                <div class="row my-4">
 
-            <div class="row my-4">
+                    <div class="col-2 px-0">
+                        <label for="nickname" class="text-body fs-5">Никнейм</label>
+                    </div>
 
-                <div class="col-2 px-0">
-                    <label for="password2" class="text-body fs-5">Повторите пароль</label>
-                </div>
-
-                <div class="col-10">
-                    <input id="password2" type="password" class="form-control"
-                           placeholder="Введите пароль ещё раз"/>
-                </div>
-            </div>
-
-            <div class="row my-4">
-
-                <div class="col-2 px-0">
-                    <label for="avatar" class="text-body fs-5">Фото профиля</label>
+                    <div class="col-10">
+                        <input name="nickname" type="text" class="form-control"
+                               placeholder="Введите свой никнейм"/>
+                    </div>
                 </div>
 
-                <div class="col-10">
-                    <input type="file" class="form-control text-secondary" id="avatar"
-                           placeholder="Выберите фото"/>
-                </div>
-            </div>
+                <div class="row my-4">
 
-            <div class="row align-items-center">
+                    <div class="col-2 px-0">
+                        <label for="password" class="text-body fs-5">Пароль</label>
+                    </div>
 
-                <div class="col-2 px-0">
-                    <p></p>
+                    <div class="col-10">
+                        <input name="password" type="password" class="form-control"
+                               placeholder="Введите пароль"/>
+                    </div>
                 </div>
 
-                <div class="col-10">
-                    <button type="button" class="btn btn-primary px-5">Регистрация</button>
+                <div class="row my-4">
+
+                    <div class="col-2 px-0">
+                        <label for="password2" class="text-body fs-5">Повторите пароль</label>
+                    </div>
+
+                    <div class="col-10">
+                        <input name="password2" type="password" class="form-control"
+                               placeholder="Введите пароль ещё раз"/>
+                    </div>
                 </div>
-            </div>
+
+{#                <div class="row my-4">#}
+{##}
+{#                    <div class="col-2 px-0">#}
+{#                        <label for="avatar" class="text-body fs-5">Фото профиля</label>#}
+{#                    </div>#}
+{##}
+{#                    <div class="col-10">#}
+{#                        <input type="file" class="form-control text-secondary" name="avatar"#}
+{#                               placeholder="Выберите фото"/>#}
+{#                    </div>#}
+{#                </div>#}
+
+                <div class="row align-items-center">
+
+                    <div class="col-2 px-0">
+                        <p></p>
+                    </div>
+
+                    <div class="col-10">
+                        <button type="submit" class="btn btn-primary px-5">Регистрация</button>
+                    </div>
+                </div>
+            </form>
         </div>
-
     </div>
 {% endblock content %}

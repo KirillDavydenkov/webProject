@@ -1,0 +1,25 @@
+{% if user.is_authenticated %}
+    {% load static %}
+    <li class="nav-item">
+        <a class="navbar-brand" href="{% url 'settings' %}">
+            <img src="{% static '/img/avatar.webp' %}" alt="" width="40"
+                 height="40">
+        </a>
+    </li>
+    <li class="nav-item">
+        <h1 class="username">{{ request.user.username }}</h1>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'settings' %}">Настройки</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" id="login_btn" aria-current="page" href="{% url 'user_logout' %}">Выйти</a>
+    </li>
+{% else %}
+    <li class="nav-item">
+        <a class="nav-link active" id="login_btn" aria-current="page" href="{% url 'login' %}">Войти</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Регистрация</a>
+    </li>
+{% endif %}

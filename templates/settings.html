@@ -1,22 +1,5 @@
 {% extends "layouts/base.html" %}
 
-{% load static %}
-
-{% block user_status %}
-    <li class="nav-item">
-        <a class="navbar-brand" href="#">
-            <img src="{% static '/img/avatar.webp' %}" alt="" width="40"
-                 height="40">
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'settings' %}">Настройки</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Выйти</a>
-    </li>
-{% endblock user_status %}
-
 {% block content %}
     <div class="col-9 my-4">
 

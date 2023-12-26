@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Count
 from django.core.paginator import Paginator
 from .models import Question, Tag, Profile
 from django.contrib.auth.models import User
+from django.contrib.auth import login as user_login, authenticate, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 
 def paginate(objects, request, per_page):
@@ -91,14 +92,62 @@ def settings(request):
 
 
 def login(request):
-    best_users = Profile.objects.annotate(total_likes=Count('user__questions__likes') +
-                                                      Count('user__answer__likes')).order_by(
-        'total_likes')[:10]
-    return render(request, 'login.html', {'tags': tags, 'best_users': best_users})
+    if request.method == 'POST':
+        login = request.POST.get("login")
+        password = request.POST.get("password")
+        user = authenticate(username=login, password=password)
+
+        if user is not None:
+            user_login(request, user)
+            return redirect('index')
+
+        else:
+            return HttpResponse(status=403)
+
+    else:
+        best_users = Profile.objects.annotate(total_likes=Count('user__questions__likes') +
+            Count('user__answer__likes')).order_by('total_likes')[:10]
+        return render(request, 'login.html', {'tags': tags, 'best_users': best_users})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('index')
 
 
 def register(request):
-    best_users = Profile.objects.annotate(total_likes=Count('user__questions__likes') +
-                                                      Count('user__answer__likes')).order_by(
-        'total_likes')[:10]
-    return render(request, 'register.html', {'tags': tags, 'best_users': best_users})
+    if request.method == 'POST':
+        login = request.POST['login']
+        email = request.POST['email']
+        nickname = request.POST['nickname']
+        pass1 = request.POST['password']
+        pass2 = request.POST['password2']
+        # avatar = request.POST['avatar']
+
+        if pass2 != pass1:
+            return HttpResponse(status=400)
+
+        else:
+            try:
+                new_user = User.objects.create_user(username=login, email=email, password=pass1)
+                new_profile = Profile.objects.create(nickname=nickname, user=new_user)
+                new_user.save()
+                new_profile.save()
+                user_login(request, new_user)
+                return redirect('index')
+
+            except:
+                return HttpResponse(status=400)
+
+    else:
+        best_users = Profile.objects.annotate(total_likes=Count('user__questions__likes') +
+                                                          Count('user__answer__likes')).order_by(
+            'total_likes')[:10]
+        return render(request, 'register.html', {'tags': tags, 'best_users': best_users})
+
+
+def like_question(request, question_id, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    question = Question.objects.get(id=question_id)
+    question.likes.add(profile)
+    return HttpResponse(status=200)
